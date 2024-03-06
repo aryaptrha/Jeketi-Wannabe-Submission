@@ -33,19 +33,19 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 
 if (!sessionStorage.getItem('inputValue')) {
     Swal.fire({
-      title: 'Welcome!',
-      text: 'Please enter something:',
+      title: 'Halo Wota!!!',
+      text: 'Siapa Oshi Kamu?',
       input: 'text',
-      inputPlaceholder: 'Enter something',
+      inputPlaceholder: 'Nama Oshi Kamu...',
       showCancelButton: true,
       confirmButtonText: 'Confirm'
     }).then((result) => {
       if (result.isConfirmed) {
         sessionStorage.setItem('inputValue', result.value);
-        Swal.fire('Welcome Back!', `You entered: ${result.value}`, 'success');
+        Swal.fire('Halo Wota! ', `${result.value} Oshi ku juga!!!`, 'success');
       }
     });
   } else {
-    Swal.fire('Welcome Back!', `You entered: ${sessionStorage.getItem('inputValue')}`, 'success');
+    Swal.fire('Lahhh', `You entered: ${sessionStorage.getItem('inputValue')}`, 'success');
   }
   

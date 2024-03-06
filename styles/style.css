@@ -23,7 +23,7 @@ header .navbar-container {
     justify-content:center;
     align-items: center;
     margin-top: 10px;
-    gap: 2rem;
+    gap: 6rem;
     position: relative;
     z-index: 2;
 }
@@ -167,10 +167,17 @@ aside {
 .content {
     padding: 20px;
     display: flex;
-    align-items: center;
+    align-items:flex-start;
     flex-direction: column;
 }
 
+.content ul {
+    font-family: "Madimi One", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    text-transform: capitalize;
+    padding-bottom: 10px;
+}
 
 #scrollToTopBtn {
     display: none;
@@ -203,6 +210,10 @@ article {
     font-family: sans-serif
 }
 
+aside h2 {
+    margin-top: 20px;
+}
+
 aside article {
     font-family: "Madimi One", sans-serif;
     font-size: 1.2rem;
@@ -225,6 +236,101 @@ aside img {
     border-radius: 0.3rem;
 }
 
-#fx_sudirman, #JKT48 {
+#theater, #JKT48, #oshiku {
     text-align: justify;
+}
+
+#theater li {
+    text-align: justify;
+    list-style-type:none;
+    padding-bottom: 20px;
+}
+
+.oshi-card-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    padding: 20px;
+}
+
+#theater li {
+    font-family: open sans;
+    font-weight: 400;
+}
+
+#oshiku p {
+    font-family: open sans;
+    font-weight: 400;
+}
+
+.oshi-card {
+    padding: 20px;
+    border-radius: 0.3rem;
+    text-transform: capitalize;
+    text-align: center;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    background-color: #f0f0f0;
+}
+
+.oshi-card img {
+    width: 75%;
+    height: auto;
+}
+
+.oshi-card p {
+    font-family: "Madimi One", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    text-transform: capitalize;
+    padding-bottom: 10px;
+}
+
+@media screen and (max-width: 768px) {
+    header .navbar-container {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    header .navbar-container .nav-list ul {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    header .navbar-container .nav-list ul li {
+        text-align: center;
+    }
+
+    header .navbar-container .nav-list ul li a {
+        padding: 1rem 0;
+    }
+
+    main {
+        flex-direction: column;
+    }
+
+    .content {
+        padding: 10px; /* Adjust padding for smaller screens */
+    }
+
+    .content ul,
+    .content p {
+        padding-bottom: 5px; /* Adjust spacing for smaller screens */
+    }
+
+    aside {
+        flex: 1;
+    }
+
+    .wave-header {
+        min-height: 30vh;
+    }
+
+    svg {
+        width: auto;
+        height: auto;
+    }
 }
