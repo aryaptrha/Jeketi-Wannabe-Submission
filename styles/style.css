@@ -1,0 +1,230 @@
+@import url('https://fonts.googleapis.com/css2?family=Madimi+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+@media screen {
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+}
+
+h1 {
+    font-family: "Madimi One", sans-serif;
+}
+
+h2 {
+    font-family: "Madimi One", sans-serif;
+}
+
+header .navbar-container {
+    display: flex;
+    margin-inline: auto;
+    justify-content:center;
+    align-items: center;
+    margin-top: 10px;
+    gap: 2rem;
+    position: relative;
+    z-index: 2;
+}
+
+header .navbar-container #jkt-new img {
+    
+    width: 75px;
+}
+
+header .navbar-container .nav-list ul {
+    padding-left: 0;
+    display: flex;
+    justify-content: center;
+    gap: 1rem 1rem;
+}
+
+header .navbar-container .nav-list ul {
+list-style-type: none;
+}
+
+nav li a {
+    font-family: "Madimi One", sans-serif;
+    padding: 0.5rem 1.5rem;
+    border-radius: 1000px;
+    text-decoration: none;
+    transition: all 0.2s ease-in-out;
+    color: red;
+}
+
+nav li a:hover {
+    background-color: red;
+    color: white;
+}
+
+.wave-header {
+    min-height: 100vh;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1000;
+}
+
+svg {
+    width: 100%;
+}
+
+.jumbotron {
+    padding: 2rem 0;
+    border-radius: 0.3rem;
+    font-family: "Madimi One", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    text-transform: capitalize;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.jumbotron p {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 400;
+    font-style: normal;
+    line-height: normal;
+    text-align: justify;
+}
+
+p {
+    line-height: 2em;
+    padding-bottom: 10px;
+}
+
+.content p{
+    font-family: open sans;
+    font-weight: 400;
+}
+
+footer {
+    background-color: #f0f0f0;
+    padding: 20px;
+    text-align: center;
+    font-family: "Madimi One", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    text-transform: capitalize;
+}
+
+main {
+    flex: 1;
+    width: 100%;
+    max-width: 1200px;
+    margin-inline: auto;
+    margin-top: 25px;
+    padding: 2rem 4rem;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: row-reverse;
+}
+
+.redhover {
+    box-shadow: inset 0 0 0 0 #54b3d6;
+    margin: 0 -.25rem;
+    padding: 0 .25rem;
+    transition: color .3s ease-in-out, box-shadow .3s ease-in-out;
+}
+
+.redhover:hover {
+    box-shadow: inset 100px 0 0 0 red;
+    color: white;
+}
+
+.jkt-logo {
+    width: 50px;
+    height: 100px;
+    margin: 0 auto;
+    border-radius: 5px;
+}
+
+aside {
+    flex: 0 0 250px;
+    padding: 20px;
+}
+
+#setlist {
+    text-align: center;
+}
+
+.card {
+    padding: 20px;
+    border-radius: 0.3rem;
+    font-family: "Madimi One", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    text-transform: capitalize;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.content {
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+
+#scrollToTopBtn {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 99;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    padding: 15px;
+    opacity: 0.5;
+}
+
+#scrollToTopBtn:hover {
+    background-color: #0056b3;
+}
+
+.container aside {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+article {
+    font-family: sans-serif
+}
+
+aside article {
+    font-family: "Madimi One", sans-serif;
+    font-size: 1.2rem;
+    font-weight: 400;
+    font-style: normal;
+    line-height: normal;
+    text-align: center;
+    transition: transform 0.3s ease; 
+}
+
+aside article:hover {
+    color: red;
+    font-weight: bold;
+    transform: scale(1.2);
+}
+
+aside img {
+    width: 150px;
+    height: 150px;
+    border-radius: 0.3rem;
+}
+
+#fx_sudirman, #JKT48 {
+    text-align: justify;
+}
