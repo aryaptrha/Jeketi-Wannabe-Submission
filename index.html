@@ -1,17 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Madimi+One&family=Open+Sans:wght@300..800&display=swap">
     <link rel="stylesheet" href="styles/style.css">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
     <title>Jeketoy</title>
 </head>
 
 <body>
     <div class="wave-header">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" aria-hidden="true" focusable="false">
             <path fill="#f3f4f5" fill-opacity="1"
                 d="M0,160L40,165.3C80,171,160,181,240,170.7C320,160,400,128,480,128C560,128,640,160,720,149.3C800,139,880,85,960,74.7C1040,64,1120,96,1200,128C1280,160,1360,192,1400,208L1440,224L1440,0L1400,0C1360,0,1280,0,1200,0C1120,0,1040,0,960,0C880,0,800,0,720,0C640,0,560,0,480,0C400,0,320,0,240,0C160,0,80,0,40,0L0,0Z">
             </path>
@@ -20,9 +24,9 @@
     <header>
         <div class="navbar-container">
             <div id="jkt-new">
-                <img src="assets/JKT48 New Era Logo.png" alt="JKT48">
+                <img src="assets/JKT48%20New%20Era%20Logo.png" alt="JKT48">
             </div>
-            <nav class="nav-list">
+            <nav class="nav-list" aria-label="Navigasi utama">
                 <ul>
                     <li><a href="#JKT48">JKT48</a></li>
                     <li><a href="#theater">Theater</a></li>
@@ -35,7 +39,7 @@
         <div class="content">
             <article class="card" id="JKT48">
                 <section>
-                    <h2>JKT48</h2>
+                    <h1>JKT48</h1>
                     <p>
                         JKT48 adalah grup idola asal Indonesia dan grup saudari AKB48 yang pertama di luar Jepang.
                         Mengadopsi konsep AKB48, "idol you can meet", grup ini mengadakan pertunjukan rutin di Teater
@@ -60,7 +64,7 @@
                     </p>
                 </section>
                 <section>
-                    <h1>Member</h1>
+                    <h2>Member</h2>
                     <p>Per tanggal 11 Februari 2024, JKT48 memiliki 56 orang anggota, terdiri dari 28 anggota tetap dan
                         28 siswi pelatihan. Sebanyak 11 siswi pelatihan berasal dari generasi ke-11 dan 17 dari generasi
                         ke-12</p>
@@ -82,7 +86,7 @@
                     </p>
                 </section>
                 <section>
-                    <h1>Theater Sementara</h1>
+                    <h3>Theater Sementara</h3>
                     <p>Kabar mengenai rencana pembukaan teater JKT48 mulai muncul sejak Maret - April 2012, tetapi belum
                         ada kejelasan mengenai realisasi keberadaan teater ini. Meskipun demikian, awal Mei 2012,
                         manajemen JKT48 mengumumkan diselenggarakannya pertunjukan teater perdana JKT48 dengan lokasi
@@ -186,9 +190,10 @@
                 </article>
             </aside>
         </div>
-        <button onclick="scrollToTop()" id="scrollToTopBtn" title="Go to top">
-            <svg width="24" height="20" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="white" stroke-width="2"
-                stroke-linecap="round" stroke-linejoin="round">
+        <button type="button" id="scrollToTopBtn" title="Go to top" aria-label="Kembali ke atas">
+            <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none"
+                stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
+                focusable="false">
                 <path d="M11 2.206l-6.235 7.528-.765-.645 7.521-9 7.479 9-.764.646-6.236-7.53v21.884h-1v-21.883z" />
             </svg>
         </button>
@@ -196,7 +201,7 @@
     <footer id="Contact">
         <p>&copy; 2024 - Aryaputra</p>
     </footer>
-    <script src="scripts/main.js"></script>
+    <script src="scripts/main.js" defer></script>
 </body>
 
 </html>

@@ -1,51 +1,47 @@
-var scrollToTopBtn = document.getElementById("scrollToTopBtn");
+'use strict';
 
-window.onscroll = function() {scrollFunction()};
+const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
-function scrollFunction() {
-  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-    scrollToTopBtn.style.display = "block";
-  } else {
-    scrollToTopBtn.style.display = "none";
-  }
+function scrollBehavior() {
+    return reduceMotion.matches ? 'auto' : 'smooth';
 }
 
-scrollToTopBtn.addEventListener("click", function() {
-  scrollToTop();
+window.addEventListener('scroll', () => {
+    scrollToTopBtn.classList.toggle('is-visible', window.scrollY > 20);
+}, { passive: true });
+
+scrollToTopBtn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: scrollBehavior() });
 });
 
-function scrollToTop() {
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth"
-  });
-}
+document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+    anchor.addEventListener('click', (event) => {
+        const target = document.querySelector(anchor.getAttribute('href'));
+        if (!target) return;
+        event.preventDefault();
+        target.scrollIntoView({ behavior: scrollBehavior(), block: 'start' });
+    });
+});
 
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-
-        document.querySelector(this.getAttribute('href')).scrollIntoView({
-            behavior: 'smooth'
+if (window.Swal) {
+    const storedName = sessionStorage.getItem('inputValue');
+    if (!storedName) {
+        Swal.fire({
+            title: 'Halo Wota!!!',
+            text: 'Siapa Oshi Kamu?',
+            input: 'text',
+            inputPlaceholder: 'Nama Oshi Kamu...',
+            showCancelButton: true,
+            confirmButtonText: 'Confirm'
+        }).then((result) => {
+            const name = (result.value ?? '').trim();
+            if (result.isConfirmed && name) {
+                sessionStorage.setItem('inputValue', name);
+                Swal.fire('Halo Wota!', `${name} Oshi ku juga!!!`, 'success');
+            }
         });
-    });
-});
-
-if (!sessionStorage.getItem('inputValue')) {
-    Swal.fire({
-      title: 'Halo Wota!!!',
-      text: 'Siapa Oshi Kamu?',
-      input: 'text',
-      inputPlaceholder: 'Nama Oshi Kamu...',
-      showCancelButton: true,
-      confirmButtonText: 'Confirm'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        sessionStorage.setItem('inputValue', result.value);
-        Swal.fire('Halo Wota! ', `${result.value} Oshi ku juga!!!`, 'success');
-      }
-    });
-  } else {
-    Swal.fire('Lahhh', `You entered: ${sessionStorage.getItem('inputValue')}`, 'success');
-  }
-  
+    } else {
+        Swal.fire('Lahhh', `You entered: ${storedName}`, 'success');
+    }
+}
