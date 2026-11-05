@@ -1,14 +1,28 @@
+/* ==========================================================================
+   Jeketoy — Silver Age comic skin
+   Static tilts use the individual `rotate` / `translate` / `scale` properties
+   so they compose with GSAP, which animates `transform`.
+   ========================================================================== */
+
 :root {
-    --font-display: "Madimi One", system-ui, sans-serif;
+    --font-display: "Bangers", "Impact", system-ui, sans-serif;
     --font-body: "Open Sans", system-ui, sans-serif;
 
-    --clr-accent: #cc0000;
-    --clr-surface: #f0f0f0;
-    --clr-wave: #f3f4f5;
-    --clr-btn: #007bff;
-    --clr-btn-hover: #0056b3;
+    --red: #D7141A;
+    --red-deep: #A90E13;
+    --yellow: #FFD400;
+    --cyan: #00A6E0;
+    --ink: #111;
+    --paper: #FFF8E7;
+    --white: #fff;
 
-    --radius: 0.3rem;
+    --line: 3px;
+    --line-heavy: 4px;
+    --drop: 6px 6px 0 var(--ink);
+    --drop-sm: 4px 4px 0 var(--ink);
+    --drop-lg: 9px 9px 0 var(--ink);
+
+    --gutter: clamp(1rem, 3vw, 2.5rem);
 }
 
 *,
@@ -20,311 +34,838 @@
 }
 
 img {
+    display: block;
     max-width: 100%;
     height: auto;
 }
 
+html {
+    scroll-padding-top: 1.5rem;
+}
+
+html.intro-active {
+    overflow: hidden;
+}
+
 body {
     font-family: var(--font-body);
-    font-size: 1rem;
-    line-height: 1.6;
+    font-size: 1.0625rem;
+    line-height: 1.65;
+    color: var(--ink);
+    background-color: var(--paper);
+    /* fine Ben-Day dot screen over the paper */
+    background-image: radial-gradient(rgb(215 20 26 / 0.09) 1.2px, transparent 1.6px);
+    background-size: 9px 9px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+}
+
+p {
+    margin-bottom: 0.9rem;
+}
+
+p:last-child {
+    margin-bottom: 0;
+}
+
+/* ---------- lettering helpers ---------- */
+
+.ink-text {
+    -webkit-text-stroke: 0.06em var(--ink);
+    paint-order: stroke fill;
 }
 
 h1,
 h2,
 h3,
-nav a,
-footer,
-aside article,
-.oshi-card p {
+.nav-list a,
+.setlist-card p,
+.speech,
+.burst-text,
+.btn,
+.footer-next {
     font-family: var(--font-display);
     font-weight: 400;
+    letter-spacing: 0.04em;
+    line-height: 1.1;
 }
 
-h1 {
-    font-size: clamp(1.6rem, 4vw, 2rem);
-}
+/* ---------- parallax FX layers ---------- */
 
-h2 {
-    font-size: clamp(1.25rem, 3vw, 1.5rem);
-}
-
-h3 {
-    font-size: clamp(1.1rem, 2.5vw, 1.25rem);
-}
-
-p {
-    line-height: 1.6;
-    margin-bottom: 0.75rem;
-}
-
-header .navbar-container {
-    display: flex;
-    margin-inline: auto;
-    justify-content: center;
-    align-items: center;
-    margin-top: 10px;
-    gap: 6rem;
-    position: relative;
-    z-index: 2;
-}
-
-header .navbar-container #jkt-new img {
-    width: 75px;
-}
-
-header .navbar-container .nav-list ul {
-    padding-left: 0;
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    list-style: none;
-}
-
-nav li a {
-    display: inline-block;
-    padding: 0.5rem 1.5rem;
-    border-radius: 1000px;
-    text-decoration: none;
-    color: var(--clr-accent);
-    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
-}
-
-.wave-header {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
+.fx {
+    position: fixed;
+    inset: 0 0 auto 0;
+    height: 170vh;
     z-index: -1;
     pointer-events: none;
 }
 
-.wave-header svg {
-    display: block;
-    width: 100%;
-    height: auto;
+.fx-dots {
+    background-image: radial-gradient(rgb(0 166 224 / 0.22) 30%, transparent 32%);
+    background-size: 34px 34px;
+    -webkit-mask-image: radial-gradient(ellipse 45% 35% at 100% 20%, #000 0%, transparent 100%),
+        radial-gradient(ellipse 40% 30% at 0% 75%, #000 0%, transparent 100%);
+    mask-image: radial-gradient(ellipse 45% 35% at 100% 20%, #000 0%, transparent 100%),
+        radial-gradient(ellipse 40% 30% at 0% 75%, #000 0%, transparent 100%);
 }
 
-.wave-header path {
-    fill: var(--clr-wave);
+.fx-lines {
+    background-image: repeating-linear-gradient(-62deg,
+            transparent 0 46px,
+            rgb(17 17 17 / 0.07) 46px 48px,
+            transparent 48px 71px,
+            rgb(17 17 17 / 0.05) 71px 72px);
+    -webkit-mask-image: linear-gradient(90deg, #000 0%, transparent 18%, transparent 82%, #000 100%);
+    mask-image: linear-gradient(90deg, #000 0%, transparent 18%, transparent 82%, #000 100%);
 }
+
+/* ---------- masthead ---------- */
+
+.masthead {
+    background-color: var(--red);
+    background-image: radial-gradient(var(--red-deep) 28%, transparent 31%);
+    background-size: 12px 12px;
+    border-bottom: var(--line-heavy) solid var(--ink);
+    position: relative;
+    z-index: 2;
+}
+
+.masthead-inner {
+    max-width: 1200px;
+    margin-inline: auto;
+    padding: 0.9rem var(--gutter);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+}
+
+.brand {
+    display: grid;
+    place-items: center;
+    width: 4.75rem;
+    height: 4.75rem;
+    border-radius: 50%;
+    background: var(--paper);
+    border: var(--line) solid var(--ink);
+    box-shadow: var(--drop-sm);
+    flex: none;
+}
+
+.brand img {
+    height: 3.6rem;
+    width: auto;
+}
+
+.nav-list ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    list-style: none;
+}
+
+.nav-list a {
+    display: inline-block;
+    padding: 0.35rem 1.1rem 0.25rem;
+    font-size: 1.6rem;
+    color: var(--paper);
+    text-decoration: none;
+    background: var(--ink);
+    border: var(--line) solid var(--ink);
+    box-shadow: 3px 3px 0 var(--yellow);
+    transition: background-color 0.15s, color 0.15s, rotate 0.15s, translate 0.15s;
+}
+
+/* ---------- layout ---------- */
 
 main {
     flex: 1;
     width: 100%;
     max-width: 1200px;
     margin-inline: auto;
-    margin-top: 25px;
-    padding: 2rem 4rem;
+    padding: 4rem var(--gutter) 5rem;
     display: flex;
-    align-items: flex-start;
     flex-direction: row-reverse;
-}
-
-.content,
-.container {
-    min-width: 0;
+    align-items: flex-start;
+    gap: clamp(2rem, 4vw, 3.5rem);
 }
 
 .content {
     flex: 1 1 auto;
-    padding: 20px;
+    min-width: 0;
     display: flex;
     flex-direction: column;
+    gap: 4.5rem;
 }
 
 .container {
-    flex: 0 0 auto;
-    width: 230px;
+    flex: 0 0 17rem;
+    min-width: 0;
+    position: sticky;
+    top: 1.5rem;
 }
 
-footer {
-    background-color: var(--clr-surface);
-    padding: 20px;
-    text-align: center;
-    text-transform: capitalize;
+/* ---------- panels + caption boxes ---------- */
+
+.panel {
+    position: relative;
+    background: var(--white);
+    border: var(--line-heavy) solid var(--ink);
+    box-shadow: var(--drop-lg);
+    padding: 2.75rem clamp(1.25rem, 3vw, 2.5rem) 2rem;
 }
 
-.card {
-    padding: 20px;
-    border-radius: var(--radius);
-    text-transform: capitalize;
-    display: flex;
-    flex-direction: column;
+.panel section+section {
+    margin-top: 2.25rem;
+    padding-top: 2.25rem;
+    border-top: var(--line) solid var(--ink);
 }
 
-#JKT48,
-#theater,
-#oshiku {
-    text-align: justify;
+.panel p,
+.panel li {
+    max-width: 68ch;
 }
 
-#theater li {
-    text-align: justify;
+.caption {
+    display: inline-block;
+    background: var(--yellow);
+    border: var(--line) solid var(--ink);
+    box-shadow: var(--drop-sm);
+    padding: 0.4rem 0.9rem 0.3rem;
+    font-size: clamp(1.6rem, 3.2vw, 2.1rem);
+    rotate: -1.5deg;
+    margin-bottom: 1.25rem;
+}
+
+/* the first caption of each panel hangs off the panel's corner, like a narrator box */
+.panel>section:first-child>.caption:first-child {
+    position: absolute;
+    top: 0;
+    left: 0;
+    translate: -1.1rem -55%;
+    margin: 0;
+    max-width: calc(100% + 0.5rem);
+}
+
+h1.caption {
+    font-size: clamp(2.4rem, 6vw, 3.6rem);
+    background: var(--red);
+    color: var(--yellow);
+    -webkit-text-stroke: 0.05em var(--ink);
+    paint-order: stroke fill;
+    rotate: -2.5deg;
+}
+
+.caption-sub {
+    background: var(--cyan);
+    font-size: clamp(1.3rem, 2.6vw, 1.6rem);
+    rotate: 1deg;
+}
+
+.star-list {
     list-style: none;
-    padding-bottom: 20px;
+    margin-top: 1rem;
+    display: grid;
+    gap: 0.75rem;
 }
+
+.star-list li {
+    position: relative;
+    padding-left: 2rem;
+}
+
+.star-list li::before {
+    content: "\2605";
+    position: absolute;
+    left: 0;
+    top: -0.1em;
+    font-size: 1.4rem;
+    color: var(--red);
+    -webkit-text-stroke: 1px var(--ink);
+}
+
+/* ---------- oshi cards ---------- */
 
 .oshi-card-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-    gap: 1rem;
-    padding: 20px 0;
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+    gap: 1.75rem 1.5rem;
+    margin-top: 1.75rem;
 }
 
 .oshi-card {
-    padding: 20px;
-    border-radius: var(--radius);
-    text-transform: capitalize;
-    text-align: center;
     display: flex;
     flex-direction: column;
-    background-color: var(--clr-surface);
+    align-items: center;
+}
+
+.oshi-card figure {
+    border: var(--line-heavy) solid var(--ink);
+    box-shadow: var(--drop);
+    background: var(--ink);
+    width: 100%;
 }
 
 .oshi-card img {
-    width: 75%;
-    height: auto;
-    margin-inline: auto;
+    width: 100%;
+    aspect-ratio: 256 / 361;
+    object-fit: cover;
 }
 
-aside {
-    padding: 20px;
+.speech {
+    position: relative;
+    margin-top: 1.3rem;
+    padding: 0.55rem 1rem 0.45rem;
+    background: var(--white);
+    border: var(--line) solid var(--ink);
+    border-radius: 999px;
+    font-size: 1.25rem;
+    text-align: center;
 }
+
+.speech::before,
+.speech::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    translate: -50% 0;
+    border-style: solid;
+    border-color: transparent;
+}
+
+.speech::before {
+    bottom: 100%;
+    border-width: 0 11px 16px;
+    border-bottom-color: var(--ink);
+}
+
+.speech::after {
+    bottom: calc(100% - 4px);
+    border-width: 0 7px 11px;
+    border-bottom-color: var(--white);
+}
+
+/* ---------- setlist sidebar ---------- */
 
 #setlist {
-    text-align: center;
+    margin-bottom: 1.5rem;
 }
 
 .container aside {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-    gap: 1rem;
-    align-items: center;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.1rem;
 }
 
-aside article {
-    font-size: 1.2rem;
-    line-height: normal;
-    text-align: center;
-    transition: transform 0.3s ease;
+.setlist-card {
+    background: var(--white);
+    border: var(--line) solid var(--ink);
+    box-shadow: var(--drop-sm);
+    padding: 0.4rem 0.4rem 0.5rem;
+    transition: rotate 0.15s ease, translate 0.15s ease, box-shadow 0.15s ease;
 }
 
-aside img {
-    display: block;
+.setlist-card img {
     width: 100%;
-    max-width: 150px;
-    aspect-ratio: 1 / 1;
-    height: auto;
+    aspect-ratio: 1;
     object-fit: cover;
-    border-radius: var(--radius);
-    margin-inline: auto;
+    border: 2px solid var(--ink);
 }
 
-#scrollToTopBtn {
-    display: none;
+.setlist-card p {
+    margin-top: 0.45rem;
+    font-size: 1.05rem;
+    text-align: center;
+}
+
+/* ---------- sound-effect bursts ---------- */
+
+.burst {
+    position: relative;
+    display: grid;
+    place-items: center;
+    aspect-ratio: 1;
+    --burst-fill: var(--yellow);
+    --burst-ink: var(--red);
+}
+
+.burst svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+}
+
+.burst polygon {
+    fill: var(--burst-fill);
+    stroke: var(--ink);
+    stroke-width: 5;
+    stroke-linejoin: round;
+    filter: drop-shadow(5px 5px 0 var(--ink));
+}
+
+.burst-text {
+    position: relative;
+    max-width: 62%;
+    text-align: center;
+    color: var(--burst-ink);
+    rotate: -7deg;
+}
+
+.burst-up {
     position: fixed;
-    bottom: 20px;
-    right: 20px;
-    z-index: 99;
-    background-color: var(--clr-btn);
-    color: white;
-    border: none;
-    border-radius: 10px;
+    right: 1.25rem;
+    bottom: 1.25rem;
+    z-index: 50;
+    width: 7.5rem;
+    border: 0;
+    background: none;
     cursor: pointer;
-    padding: 15px;
-    opacity: 0.5;
+    --burst-fill: var(--cyan);
+    --burst-ink: var(--ink);
+    visibility: hidden;
+    scale: 0;
+    transition: scale 0.25s cubic-bezier(0.3, 1.6, 0.5, 1), visibility 0s 0.25s;
 }
 
-#scrollToTopBtn.is-visible {
-    display: block;
+.burst-up .burst-text {
+    font-size: 1.05rem;
+    max-width: 58%;
 }
+
+.burst-up.is-visible {
+    visibility: visible;
+    scale: 1;
+    transition: scale 0.25s cubic-bezier(0.3, 1.6, 0.5, 1), visibility 0s;
+}
+
+.burst-toast {
+    position: fixed;
+    top: 12vh;
+    left: 50%;
+    translate: -50% 0;
+    width: min(80vw, 22rem);
+    z-index: 950;
+    pointer-events: none;
+    --burst-fill: var(--yellow);
+    --burst-ink: var(--red);
+}
+
+.burst-toast[hidden] {
+    display: none;
+}
+
+.burst-toast .burst-text {
+    font-size: clamp(1.6rem, 6vw, 2.3rem);
+    -webkit-text-stroke: 0.04em var(--ink);
+    paint-order: stroke fill;
+}
+
+/* ---------- footer ---------- */
+
+footer {
+    background: var(--ink);
+    color: var(--paper);
+    text-align: center;
+    padding: 2rem var(--gutter);
+    border-top: var(--line-heavy) solid var(--ink);
+}
+
+.footer-next {
+    font-size: 2rem;
+    color: var(--yellow);
+    margin-bottom: 0.5rem;
+}
+
+/* ---------- cover intro ---------- */
+
+.intro {
+    display: none;
+}
+
+.js .intro {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    background: var(--red);
+    cursor: pointer;
+    /* failsafe: if the script never runs, the cover can't trap the page */
+    animation: intro-failsafe 0s linear 12s forwards;
+}
+
+@keyframes intro-failsafe {
+    to {
+        visibility: hidden;
+        pointer-events: none;
+    }
+}
+
+.intro-rays {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 220vmax;
+    height: 220vmax;
+    margin: -110vmax 0 0 -110vmax;
+    background: repeating-conic-gradient(from 0deg, var(--red) 0deg 7deg, var(--red-deep) 7deg 14deg);
+    animation: spin 40s linear infinite;
+}
+
+.intro-dots {
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(rgb(17 17 17 / 0.28) 30%, transparent 33%);
+    background-size: 16px 16px;
+    -webkit-mask-image: radial-gradient(circle at 50% 50%, transparent 30%, #000 85%);
+    mask-image: radial-gradient(circle at 50% 50%, transparent 30%, #000 85%);
+}
+
+.intro-cover {
+    position: relative;
+    text-align: center;
+    padding: 1rem;
+}
+
+.intro-title {
+    font-family: var(--font-display);
+    font-size: clamp(6rem, 30vw, 19rem);
+    line-height: 0.9;
+    color: var(--yellow);
+    letter-spacing: 0.02em;
+    text-shadow: 0.05em 0.05em 0 var(--ink);
+    -webkit-text-stroke-width: 0.045em;
+    margin: 0;
+}
+
+.intro-title .char {
+    display: inline-block;
+}
+
+.intro-sub {
+    display: inline-block;
+    margin-top: 1.25rem;
+    background: var(--paper);
+    border: var(--line) solid var(--ink);
+    box-shadow: var(--drop-sm);
+    padding: 0.4rem 1rem;
+    font-weight: 700;
+    rotate: -1.5deg;
+}
+
+.intro-boom {
+    position: absolute;
+    top: -14%;
+    right: -12%;
+    width: clamp(8rem, 22vw, 14rem);
+    --burst-fill: var(--yellow);
+    --burst-ink: var(--red);
+}
+
+.intro-boom .burst-text {
+    font-size: clamp(1.4rem, 4vw, 2.4rem);
+}
+
+.intro-welcome {
+    position: absolute;
+    width: min(88vw, 26rem);
+    --burst-fill: var(--cyan);
+    --burst-ink: var(--paper);
+    opacity: 0;
+    visibility: hidden;
+}
+
+.intro-welcome .burst-text {
+    font-size: clamp(1.8rem, 7vw, 2.8rem);
+    -webkit-text-stroke: 0.05em var(--ink);
+    paint-order: stroke fill;
+}
+
+.intro-skip {
+    position: absolute;
+    right: 1.25rem;
+    bottom: 1.25rem;
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 0.95rem;
+    padding: 0.55rem 1rem;
+    background: var(--paper);
+    color: var(--ink);
+    border: var(--line) solid var(--ink);
+    box-shadow: var(--drop-sm);
+    cursor: pointer;
+}
+
+@keyframes spin {
+    to {
+        rotate: 360deg;
+    }
+}
+
+/* ---------- "Meanwhile..." wipe ---------- */
+
+.wipe {
+    position: fixed;
+    inset: 0;
+    z-index: 900;
+    display: grid;
+    place-content: center;
+    gap: 0.5rem;
+    text-align: center;
+    background: var(--yellow);
+    border-inline: var(--line-heavy) solid var(--ink);
+    visibility: hidden;
+}
+
+.wipe-text {
+    font-family: var(--font-display);
+    font-size: clamp(3.5rem, 12vw, 8rem);
+    line-height: 1;
+    margin: 0;
+}
+
+.wipe-place {
+    font-weight: 700;
+    font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+    margin: 0;
+}
+
+/* ---------- speech-bubble dialog ---------- */
+
+.bubble {
+    margin: auto;
+    width: min(26rem, calc(100vw - 2rem));
+    background: var(--white);
+    color: var(--ink);
+    border: var(--line-heavy) solid var(--ink);
+    border-radius: 2.5rem;
+    box-shadow: var(--drop-lg);
+    padding: 2rem 2rem 1.75rem;
+    overflow: visible;
+}
+
+.bubble::backdrop {
+    background-color: rgb(215 20 26 / 0.82);
+    background-image: radial-gradient(rgb(17 17 17 / 0.3) 30%, transparent 33%);
+    background-size: 14px 14px;
+}
+
+/* tail */
+.bubble::before,
+.bubble::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 3.5rem;
+    border-style: solid;
+    border-color: transparent;
+}
+
+.bubble::before {
+    border-width: 34px 0 0 34px;
+    border-top-color: var(--ink);
+    margin-top: 0;
+}
+
+.bubble::after {
+    left: calc(3.5rem + 5px);
+    margin-top: -6px;
+    border-width: 25px 0 0 25px;
+    border-top-color: var(--white);
+}
+
+.bubble-title {
+    font-size: 2.6rem;
+    color: var(--red);
+    -webkit-text-stroke: 0.04em var(--ink);
+    paint-order: stroke fill;
+    margin-bottom: 0.5rem;
+}
+
+.bubble-form label {
+    display: block;
+    font-weight: 700;
+    font-size: 1.15rem;
+    margin-bottom: 0.6rem;
+}
+
+.bubble-form input {
+    width: 100%;
+    font: inherit;
+    padding: 0.65rem 0.85rem;
+    background: var(--paper);
+    border: var(--line) solid var(--ink);
+    color: var(--ink);
+}
+
+.bubble-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1.25rem;
+}
+
+.btn {
+    font-size: 1.35rem;
+    padding: 0.45rem 1.1rem 0.35rem;
+    background: var(--white);
+    color: var(--ink);
+    border: var(--line) solid var(--ink);
+    box-shadow: var(--drop-sm);
+    cursor: pointer;
+}
+
+.btn:active {
+    translate: 3px 3px;
+    box-shadow: 1px 1px 0 var(--ink);
+}
+
+.btn-primary {
+    background: var(--red);
+    color: var(--white);
+}
+
+/* ---------- focus ---------- */
 
 a:focus-visible,
-button:focus-visible {
-    outline: 3px solid var(--clr-accent);
-    outline-offset: 2px;
+button:focus-visible,
+input:focus-visible {
+    outline: var(--line-heavy) solid var(--cyan);
+    outline-offset: 3px;
 }
+
+.burst-up:focus-visible {
+    outline-offset: -6px;
+    border-radius: 50%;
+}
+
+/* ---------- hover (fine pointers only) ---------- */
 
 @media (hover: hover) and (pointer: fine) {
-    nav li a:hover {
-        background-color: var(--clr-accent);
-        color: white;
+    .nav-list a:hover {
+        background: var(--yellow);
+        color: var(--ink);
+        box-shadow: 3px 3px 0 var(--ink);
+        rotate: -3deg;
+        translate: 0 -2px;
     }
 
-    aside article:hover {
-        color: var(--clr-accent);
-        transform: scale(1.05);
+    .setlist-card:hover {
+        rotate: -2.5deg;
+        translate: -3px -3px;
+        box-shadow: 7px 7px 0 var(--red);
     }
 
-    #scrollToTopBtn:hover {
-        background-color: var(--clr-btn-hover);
+    .setlist-card:nth-child(even):hover {
+        rotate: 2.5deg;
+    }
+
+    .btn:hover {
+        background: var(--yellow);
+        color: var(--ink);
     }
 }
 
-@media screen and (max-width: 768px) {
-    header .navbar-container {
-        flex-direction: column;
-        gap: 0.75rem;
+/* ---------- responsive ---------- */
+
+@media (max-width: 768px) {
+    .fx {
+        display: none;
     }
 
-    header .navbar-container .nav-list ul {
+    .masthead-inner {
         flex-direction: column;
-        align-items: center;
-        gap: 0.25rem;
+        gap: 0.9rem;
     }
 
-    nav li a {
-        padding: 0.7rem 2rem;
+    .nav-list ul {
+        justify-content: center;
+    }
+
+    .nav-list a {
+        font-size: 1.35rem;
+        padding: 0.3rem 0.9rem 0.2rem;
     }
 
     main {
         flex-direction: column;
         align-items: stretch;
-        padding: 1.5rem 1rem;
-        margin-top: 1rem;
-    }
-
-    #JKT48,
-    #theater,
-    #oshiku {
-        text-align: start;
-    }
-
-    #theater li {
-        text-align: start;
-        padding-bottom: 0.75rem;
+        padding-top: 3.5rem;
     }
 
     .content {
-        padding: 10px;
+        gap: 4rem;
     }
 
     .container {
-        width: 100%;
+        position: static;
+        flex-basis: auto;
     }
 
-    aside {
-        padding: 10px 0;
+    .container aside {
+        grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr));
+    }
+
+    .panel {
+        box-shadow: var(--drop);
+        padding-top: 2.5rem;
+    }
+
+    .panel>section:first-child>.caption:first-child {
+        translate: -0.5rem -55%;
+    }
+
+    .intro-boom {
+        top: -38%;
+        right: -4%;
+    }
+
+    .burst-up {
+        width: 6.25rem;
+        right: 0.75rem;
+        bottom: 0.75rem;
+    }
+
+    .burst-up .burst-text {
+        font-size: 0.9rem;
     }
 }
 
-@media screen and (max-width: 480px) {
-    header .navbar-container #jkt-new img {
-        width: 60px;
+@media (max-width: 480px) {
+    .oshi-card-container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem 1rem;
     }
 
-    nav li a {
-        padding: 0.6rem 1.5rem;
+    /* a lone card on the last row sits centred instead of hugging the left */
+    .oshi-card:last-child:nth-child(odd) {
+        grid-column: 1 / -1;
+        justify-self: center;
+        width: calc(50% - 0.5rem);
     }
 
-    .card,
-    .oshi-card {
-        padding: 14px;
+    .speech {
+        font-size: 1.05rem;
+        padding-inline: 0.6rem;
+    }
+
+    .bubble {
+        padding: 1.5rem 1.4rem 1.4rem;
     }
 }
+
+/* ---------- reduced motion ---------- */
 
 @media (prefers-reduced-motion: reduce) {
+    .js .intro {
+        display: none;
+    }
+
     *,
     *::before,
     *::after {
